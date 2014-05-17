@@ -3,8 +3,8 @@ from distutils.core import setup
 setup(
     name='gtfo',
     version='0',
-    packages=['gtfo', 'gtfo.gtfo'],
-    url='https://github.com/OmegaDroid/gtfo',
+    packages=['gtfo', 'gtfo.gtfo_site'],
+    url='https://github.com/OmegaDroid/gtfo_site',
     license='MIT',
     author='Daniel Bate',
     author_email='',

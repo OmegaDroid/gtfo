@@ -1,5 +1,5 @@
 from django.test import TestCase
-from gtfo.registry import TemplateRegistry
+from gtfo.gtfo_site.registry import TemplateRegistry
 
 
 class TemplateRegistry_GetTemplate(TestCase):

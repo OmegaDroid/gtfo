@@ -1,7 +1,7 @@
 import argparse
 import os
 from django.core import management
-from gtfo.gtfo.registry import load_registry
+from .gtfo_site.registry import load_registry
 
 
 def parse_args():
@@ -16,7 +16,7 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gtfo.gtfo.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gtfo_site.settings")
     args = parse_args()
     load_registry(args.registry)
     management.call_command('runserver')

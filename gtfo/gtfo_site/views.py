@@ -1,4 +1,4 @@
-from gtfo.render import render_response
+from .render import render_response
 
 
 def handle_it(request, host, path=None):

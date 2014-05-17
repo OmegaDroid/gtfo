@@ -3,8 +3,8 @@ from django.http import HttpResponseNotFound
 from django.test import TestCase
 from django.conf import settings
 from shutil import rmtree
-from gtfo.registry import load_registry
-from gtfo.render import render_response
+from gtfo.gtfo_site.registry import load_registry
+from gtfo.gtfo_site.render import render_response
 
 
 class Render_RenderResponse(TestCase):

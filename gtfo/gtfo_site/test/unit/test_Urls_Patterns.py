@@ -2,7 +2,7 @@ from django.core.urlresolvers import resolve
 from django.http import Http404
 from django.test import TestCase
 
-from gtfo.views import handle_it
+from gtfo.gtfo_site.views import handle_it
 
 
 class Urls_Patterns(TestCase):
@@ -12,7 +12,7 @@ class Urls_Patterns(TestCase):
     def test_UrlHasOnlyTheTargetHostname_ResponseFunctionIsHandleIt(self):
         resolver = resolve("/foo")
 
-        self.assertEqual(handle_it, resolver.func)
+        self.assertEqual(handle_it.__name__, resolver.func.__name__)
 
     def test_UrlHasOnlyTheTargetHostname_ResponseHasOneKwargHostFoo(self):
         resolver = resolve("/foo")

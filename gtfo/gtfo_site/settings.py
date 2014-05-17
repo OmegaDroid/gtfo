@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'gtfo.urls'
+ROOT_URLCONF = 'gtfo_site.urls'
 
-WSGI_APPLICATION = 'gtfo.wsgi.application'
+WSGI_APPLICATION = 'gtfo_site.wsgi.application'
 
 
 # Database

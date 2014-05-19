@@ -20,22 +20,54 @@ Setup
 
 To install GTFO run.
 
-'''
+```
 pip install git+git://github.com/OmegaDroid/gtfo
-'''
+```
 
 You will then need to create a registry file that contains a json dictionary with template paths indexed against their
 url regex. Note: the actual url you navigate to is {{ server_host }}/{{ device_host }}/{{ page_url }}
 
 For example, if GTFO is running on localhost:8000:
 
-'''
+```
 {
     "^$": "index.html",
     "^hello$: "hello.html
 }
-'''
+```
 
 Would give a server where "localhost:8000/foo/" would give the "index.html" response for device "foo" and
 "localhost:8000/bar/hello" would give the "hello.html" response for device "bar". All paths in the registry are given
 relative to the registry file.
+
+Usage
+=====
+
+```
+positional arguments:
+  registry              Path to the url registration file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -ip IP_ADDRESS, --ip-address IP_ADDRESS
+                        The ip to open the server on (including port)
+```
+
+Templates
+=========
+
+Templates follow the django specification (see https://docs.djangoproject.com/en/dev/topics/templates/), all standard
+template tags and filters should be available.
+
+Any named groups are available by name in the template as well as the name of the device host (referenced by "host").
+For example, if there is a template file "foo.html":
+
+```
+Hello {{ host }}: The sky is {{ color }}
+```
+
+Is indexed by "^sky/(?P<color>[^/])$", the url "localhost:8000/world/sky/green" would give the following response:
+
+```
+Hello world: The sky is green
+```

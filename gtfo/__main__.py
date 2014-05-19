@@ -1,7 +1,7 @@
 import argparse
 import os
 from django.core import management
-from .gtfo_site.registry import load_registry
+from gtfo.gtfo_site.registry import load_registry
 
 
 def parse_args():

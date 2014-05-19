@@ -42,7 +42,8 @@ def _create_response(host, url):
         return HttpResponseNotFound()
 
     templatePath = t["template"]
-    context = t["context"]
+    context = {"host": host}
+    context.update(t["context"])
 
     with open(templatePath, 'r') as f:
         template = Template(f.read())

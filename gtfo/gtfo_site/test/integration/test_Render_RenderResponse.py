@@ -25,6 +25,11 @@ class Render_RenderResponse(TestCase):
 
         self.assertEqual(b"hello world", response.content)
 
+    def test_LoadWithoutParameters_HostIsInjectedIntoTheContext(self):
+        response = render_response("host", "hello")
+
+        self.assertEqual(b"hello host", response.content)
+
     def test_LoadHostHome_CachedVersionInTheHostExists(self):
         render_response("host", "")
 

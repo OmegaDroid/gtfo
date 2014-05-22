@@ -1,5 +1,6 @@
 import re
-from twisted.names import client, dns
+from twisted.names import client, dns, server, cache
+from twisted.application import internet, service
 from gtfo.gtfo_site import utils
 
 
@@ -49,3 +50,25 @@ class Resolver(client.Resolver):
             return [(dns.RRHeader(name, dns.A, dns.IN, self.ttl, dns.Record_A(result, self.ttl)),), (), ()]
         else:
             return self._lookup(name, dns.IN, dns.A, timeout)
+
+
+def start_dns(prefix=None, suffix=None, fallback_servers=None):
+    resolver = Resolver(Mapping(prefix=prefix, suffix=suffix), servers=fallback_servers)
+
+    # create the protocols
+    f = server.DNSServerFactory(caches=[cache.CacheResolver()], clients=[resolver])
+    p = dns.DNSDatagramProtocol(f)
+    f.noisy = p.noisy = False
+
+    # register as tcp and udp
+    ret = service.MultiService()
+    PORT=53
+
+    for (klass, arg) in [(internet.TCPServer, f), (internet.UDPServer, p)]:
+        s = klass(PORT, arg)
+        s.setServiceParent(ret)
+
+
+    # run all of the above as a twistd application## this sets up the application
+    application = service.Application('dnsserver', 1, 1)
+    ret.setServiceParent(service.IServiceCollection(application))

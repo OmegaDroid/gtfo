@@ -8,5 +8,5 @@ setup(
     license='MIT',
     author='Daniel Bate',
     author_email='',
-    description='Get The file Out - A Network Hardware Replacement Tool', requires=['django']
+    description='Get The file Out - A Network Hardware Replacement Tool', requires=['django', 'twisted']
 )

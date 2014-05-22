@@ -1,11 +1,25 @@
 import re
 from twisted.names import client, dns, server, cache
 from twisted.application import internet, service
-from gtfo.gtfo_site import utils
+
+
+def _unix_scan_dns_severs():
+    dns_ips = []
+
+    for line in file('/etc/resolv.conf', 'r'):
+         columns = line.split()
+         if columns[0] == 'nameserver':
+             dns_ips.extend(columns[1:])
+
+    return dns_ips
+
+
+def scan_dns_servers():
+    return _unix_scan_dns_severs()
 
 
 class Mapping():
-    def __init__(self, prefix: str=None, suffix: str=None):
+    def __init__(self, gtfo_host, prefix=None, suffix=None):
         """
         Initialises the mapping. The mapped regex is "{{ prefix }}(.+){{ suffix }}". If neither a prefix or suffix are
         supplied a ValueError is raised
@@ -18,20 +32,21 @@ class Mapping():
             raise ValueError("A hostname prefix or suffix must be supplied")
 
         self._mapper = re.compile("%s(.+)%s" % (prefix or "", suffix or ""))
+        self._gtfo_host = gtfo_host
 
     def __getitem__(self, key):
         m = self._mapper.match(key)
         if not m:
             raise KeyError
 
-        return utils.get_server_address() + "/" + m.group(1)
+        return self._gtfo_host + "/" + m.group(1)
 
     def __contains__(self, key):
         return self._mapper.match(key)
 
 
 class Resolver(client.Resolver):
-    def __init__(self, mapper: dict(str, str), servers: list(str, int)):
+    def __init__(self, mapper, servers):
         """
         Initialises the Resolver. Mapper needs to behave as a readable dictionary, as a minimum it must implement
         __contains__ and __getitem__
@@ -41,7 +56,7 @@ class Resolver(client.Resolver):
                         hostname, port pairs
         """
         self._mapper = mapper
-        super().__init__(self, servers=servers)
+        super(client.Resolver, self).__init__(self, servers=servers)
         self.ttl = 10
 
     def lookupAddress(self, name, timeout=None):
@@ -52,8 +67,8 @@ class Resolver(client.Resolver):
             return self._lookup(name, dns.IN, dns.A, timeout)
 
 
-def start_dns(prefix=None, suffix=None, fallback_servers=None):
-    resolver = Resolver(Mapping(prefix=prefix, suffix=suffix), servers=fallback_servers)
+def start_dns(gtfo_host, dns_fallbacks, prefix=None, suffix=None):
+    resolver = Resolver(Mapping(gtfo_host, prefix=prefix, suffix=suffix), servers=[fallback.split(':') for fallback in dns_fallbacks])
 
     # create the protocols
     f = server.DNSServerFactory(caches=[cache.CacheResolver()], clients=[resolver])

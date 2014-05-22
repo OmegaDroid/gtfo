@@ -1,4 +1,7 @@
-from unittest.mock import Mock, patch
+try:
+    from unittest.mock import Mock, patch
+except ImportError:
+    from mock import patch, Mock
 from django.test import TestCase
 from gtfo.gtfo_site.render import render_response
 import gtfo

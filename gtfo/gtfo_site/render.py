@@ -22,7 +22,7 @@ def _cache_path(host, url):
 def _write_cached(path, render):
     d = os.path.dirname(path)
 
-    os.makedirs(d, exist_ok=True)
+    os.makedirs(d)
     with open(path, "w") as f:
         f.write(render)
 

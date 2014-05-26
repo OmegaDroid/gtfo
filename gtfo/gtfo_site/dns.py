@@ -1,21 +1,7 @@
 import re
+from twisted.internet import reactor
 from twisted.names import client, dns, server, cache
 from twisted.application import internet, service
-
-
-def _unix_scan_dns_severs():
-    dns_ips = []
-
-    for line in file('/etc/resolv.conf', 'r'):
-         columns = line.split()
-         if columns[0] == 'nameserver':
-             dns_ips.extend(columns[1:])
-
-    return dns_ips
-
-
-def scan_dns_servers():
-    return _unix_scan_dns_severs()
 
 
 class Mapping():
@@ -56,7 +42,7 @@ class Resolver(client.Resolver):
                         hostname, port pairs
         """
         self._mapper = mapper
-        super(client.Resolver, self).__init__(self, servers=servers)
+        client.Resolver.__init__(self, servers=servers)
         self.ttl = 10
 
     def lookupAddress(self, name, timeout=None):
@@ -79,11 +65,6 @@ def start_dns(gtfo_host, dns_fallbacks, prefix=None, suffix=None):
     ret = service.MultiService()
     PORT=53
 
-    for (klass, arg) in [(internet.TCPServer, f), (internet.UDPServer, p)]:
-        s = klass(PORT, arg)
-        s.setServiceParent(ret)
-
-
-    # run all of the above as a twistd application## this sets up the application
-    application = service.Application('dnsserver', 1, 1)
-    ret.setServiceParent(service.IServiceCollection(application))
+    reactor.listenUDP(PORT, p)
+    reactor.listenTCP(PORT, f)
+    reactor.run()

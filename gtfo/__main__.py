@@ -1,5 +1,6 @@
 import argparse
 import os
+from threading import Thread
 from django.core import management
 from gtfo.gtfo_site.dns import start_dns
 from gtfo.gtfo_site.registry import load_registry
@@ -21,7 +22,7 @@ def parse_args():
 
 
 def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gtfo_site.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gtfo.gtfo_site.settings")
     args = parse_args()
 
     load_registry(args.registry)
@@ -30,7 +31,13 @@ def main():
             print("You must supply at least one dns fallback server to enable the dns")
             return
 
-        start_dns(args.ip_address, args.dns_fallbacks, prefix=args.dns_prefix, suffix=args.dns_suffix)
+        class DnsThread(Thread):
+            def run(self):
+               start_dns(args.ip_address, args.dns_fallbacks, prefix=args.dns_prefix, suffix=args.dns_suffix)
+
+        print("Starting Dns Thread")
+        DnsThread().start()
+        print("Dns Thread Started")
     management.call_command('runserver', args.ip_address)
 
 

@@ -1,7 +1,11 @@
 import argparse
 import os
+import site
+from sys import path
 from django.core import management
 from gtfo.gtfo_site.registry import load_registry
+
+site.addsitedir(os.path.dirname(__file__))
 
 
 def parse_args():

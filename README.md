@@ -25,7 +25,11 @@ pip install git+git://github.com/OmegaDroid/gtfo
 ```
 
 You will then need to create a registry file that contains a json dictionary with template paths indexed against their
-url regex. Note: the actual url you navigate to is {{ server_host }}/{{ device_host }}/{{ page_url }}
+url regex. Note: the actual url you navigate to is:
+
+```
+{{ server_host }}/{{ device_host }}/{{ page_url }}
+```
 
 For example, if GTFO is running on localhost:8000:
 
@@ -66,7 +70,13 @@ For example, if there is a template file "foo.html":
 Hello {{ host }}: The sky is {{ color }}
 ```
 
-Is indexed by "^sky/(?P<color>[^/])$", the url "localhost:8000/world/sky/green" would give the following response:
+Is indexed by:
+
+```
+"^sky/(?P<color>[^/])$"
+```
+
+The url "localhost:8000/world/sky/green" would give the following response:
 
 ```
 Hello world: The sky is green

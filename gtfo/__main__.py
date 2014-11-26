@@ -1,5 +1,6 @@
 import os
 import site
+site.addsitedir(os.path.dirname(__file__))
 site.addsitedir(os.path.join(os.path.dirname(__file__), ".."))
 
 import argparse
@@ -24,5 +25,6 @@ if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gtfo_site.settings")
     args = parse_args()
     load_registry(args.registry)
-    management.call_command('runserver', args.ip_address)
+
+    management.execute_from_command_line(["", "runserver"])
 

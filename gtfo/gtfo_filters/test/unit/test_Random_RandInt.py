@@ -1,13 +1,14 @@
 from unittest import TestCase
 from unittest.mock import patch, Mock
-from gtfo.gtfo_filters.random import rand_int
+
+from gtfo.gtfo_filters.templatetags.random import rand_int
 
 
 def _randint(a, b):
     return {"a": a, "b": b}
 
 
-@patch("gtfo.gtfo_filters.random.random.randint", Mock(side_effect=_randint))
+@patch("gtfo.gtfo_filters.templatetags.random.random.randint", Mock(side_effect=_randint))
 class Random_RandomInt(TestCase):
     def test_NoArgumentsGiven_ResultIsRandomBetweenZeroAndOne(self):
         res = rand_int()

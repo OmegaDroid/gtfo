@@ -1,9 +1,10 @@
 from unittest import TestCase
-from unittest.mock import patch, Mock
-from gtfo.gtfo_filters.random import rand_int, rand_float
+from unittest.mock import patch
+
+from gtfo.gtfo_filters.templatetags.random import rand_float
 
 
-@patch("gtfo.gtfo_filters.random.random.random")
+@patch("gtfo.gtfo_filters.templatetags.random.random.random")
 class Random_RandomInt(TestCase):
     def test_NoArgumentsAreGiven_ResultIsBetweenZeroAndOne(self, rand):
         rand.return_value = 0

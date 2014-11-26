@@ -1,0 +1,59 @@
+{% load random %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Function</td>
+                <td>Arguments</td>
+                <td>Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>rand_int</td>
+                <td></td>
+                <td>{% rand_int %}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>30</td>
+                <td>{% rand_int 30 %}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>50, 100</td>
+                <td>{% rand_int 50 100 %}</td>
+            </tr>
+            <tr>
+                <td>rand_float</td>
+                <td></td>
+                <td>{% rand_float %}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>30</td>
+                <td>{% rand_float 30 %}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>50, 100</td>
+                <td>{% rand_float 50 100 %}</td>
+            </tr>
+            <tr>
+                <td>rand_from</td>
+                <td>foo, bar, boo, moo</td>
+                <td>{% rand_from "foo" "bar" "boo" "moo" %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 {
 	"^$": "index.html",
 	"^hello$": "hello.html",
+    "^random$": "random.html",
 	"^(?P<first>[^/]+)/(?P<second>[^/]+)/foo$": "foo.html"
 }

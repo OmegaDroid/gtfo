@@ -1,5 +1,5 @@
 .. GTFO documentation master file, created by
-   sphinx-quickstart on Mon Dec  8 22:45:35 2014.
+   sphinx-quickstart on Mon Dec  8 23:09:38 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -17,6 +17,5 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 

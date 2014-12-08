@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# GTFO documentation build configuration file, created by
-# sphinx-quickstart on Mon Dec  8 22:45:35 2014.
+# gtfo documentation build configuration file, created by
+# sphinx-quickstart on Mon Dec  8 23:09:38 2014.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -19,7 +19,7 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+#sys.path.insert(0, os.path.abspath(os.path.join('..', '..'))
 
 # -- General configuration ------------------------------------------------
 
@@ -30,11 +30,10 @@ import os
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
+#    'sphinx.ext.autodoc',
+#    'sphinx.ext.coverage',
+    'sphinx.ext.pngmath',
+#    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -50,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'GTFO'
+project = 'gtfo'
 copyright = '2014, Daniel Bate'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -95,7 +94,7 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
-#modindex_common_prefix = []
+#modindex_common_prefix = ['test_']
 
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
@@ -183,7 +182,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'GTFOdoc'
+htmlhelp_basename = 'gtfodoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -203,7 +202,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'GTFO.tex', 'GTFO Documentation',
+  ('index', 'gtfo.tex', 'gtfo Documentation',
    'Daniel Bate', 'manual'),
 ]
 
@@ -233,7 +232,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'gtfo', 'GTFO Documentation',
+    ('index', 'gtfo', 'gtfo Documentation',
      ['Daniel Bate'], 1)
 ]
 
@@ -247,8 +246,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'GTFO', 'GTFO Documentation',
-   'Daniel Bate', 'GTFO', 'One line description of project.',
+  ('index', 'gtfo', 'gtfo Documentation',
+   'Daniel Bate', 'gtfo', 'Get The File Out - A Network Hardware Replacement Tool.',
    'Miscellaneous'),
 ]
 
